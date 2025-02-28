@@ -5,7 +5,17 @@ let io;
 
 const initializeSocket = (server) => {
   io = new Server(server, {
-    cors: { origin: "*" }, // Permitir cualquier origen (configurable)
+    path: "/socket",
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST", "OPTIONS"],
+      allowedHeaders: {
+        "Access-Control-Allow-Origin": "*",
+        allowedHeaders: ["Authorization", "Content-Type"],
+      },
+      credentials: true,
+    },
+    transports: ["websocket", "polling"],
   });
 
   io.on("connection", (socket) => {
