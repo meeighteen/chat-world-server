@@ -19,8 +19,6 @@ app.options("*", (req, res) => {
 // Inicializar WebSockets con el servidor HTTP
 initializeSocket(server);
 
-const PORT = 3001;
-
-server.listen(PORT, () =>
+server.listen(process.env.PORT || 3001, () =>
   console.log(`🚀 Servidor corriendo en el puerto ${PORT}`)
 );

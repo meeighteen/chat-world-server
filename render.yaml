@@ -1,0 +1,14 @@
+services:
+  - name: chat-world-server
+    type: web
+    runtime: node
+    repo: https://github.com/your-username/chat-world-server
+    branch: main
+    plan: free
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: PORT
+        value: 3001
+    buildCommand: pnpm build
+    startCommand: pnpm start
