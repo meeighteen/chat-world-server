@@ -10,5 +10,5 @@ services:
         value: 18
       - key: PORT
         value: 3001
-    buildCommand: pnpm build
+    buildCommand: pnpm install && pnpm run build
     startCommand: pnpm start
