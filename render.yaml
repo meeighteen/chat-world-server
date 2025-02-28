@@ -2,7 +2,7 @@ services:
   - name: chat-world-server
     type: web
     runtime: node
-    repo: https://github.com/your-username/chat-world-server
+    repo: https://github.com/meeighteen/chat-world-server
     branch: main
     plan: free
     envVars:
