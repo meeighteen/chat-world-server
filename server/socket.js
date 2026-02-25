@@ -20,13 +20,26 @@ const initializeSocket = (server) => {
 
   io.on("connection", (socket) => {
     console.log(`🔗 Usuario conectado: ${socket.id}`);
-    socket.join("default");
+    // socket.join("default");
 
     // Pasamos la instancia de `io` y `socket` al manejador de eventos
     handleChatEvents(io, socket);
 
-    socket.on("disconnect", () => {
-      console.log(`⚠️ Usuario desconectado: ${socket.id}`);
+    socket.on("disconnecting", () => {
+      console.log(`Salas a las que pertenecía ${socket.id}:`, socket.rooms);
+      const user = socket.data.user;
+      socket.rooms.forEach((room) => {
+        if (room !== socket.id && room !== "default") {
+          console.log(`El usuario ${user} se desconectó abruptamente de la sala: ${room}`);
+
+          socket.to(room).emit("message", { 
+            user: "Sistema", 
+            text: `${user} se ha desconectado`, 
+            isNew: true, 
+            room 
+          });
+        }
+      })
     });
   });
 };
